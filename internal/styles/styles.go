@@ -8,6 +8,7 @@ var (
 	foregroundColor        = lipgloss.Color("#ffffff")
 	accentColor            = primaryColor
 	mutedColor             = lipgloss.Color("#737373")
+	dangerColor            = lipgloss.Color("#ef4444")
 )
 
 var (
@@ -17,4 +18,5 @@ var (
 	TextStyle            = lipgloss.NewStyle().Foreground(foregroundColor)
 	MutedStyle           = lipgloss.NewStyle().Foreground(mutedColor).Faint(true)
 	MutedForegroundStyle = lipgloss.NewStyle().Foreground(mutedColor)
+	DangerStyle          = lipgloss.NewStyle().Foreground(dangerColor)
 )

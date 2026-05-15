@@ -23,6 +23,38 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		switch m.state {
 		case listView:
 			switch key {
+			case "space":
+				if m.deleteNote != nil {
+					m.deleteNote = nil
+				} else {
+					n := m.notes[m.listIndex]
+					m.deleteNote = &n
+				}
+			}
+			if m.deleteNote != nil {
+				switch key {
+				case "Y":
+					if err := m.store.DeleteNote(m.deleteNote.ID); err != nil {
+						return m, tea.Quit
+					}
+					var err error
+					m.notes, err = m.store.GetNotes()
+					if err != nil {
+						return m, tea.Quit
+					}
+					m.deleteNote = nil
+					if m.listIndex >= len(m.notes) {
+						m.listIndex = len(m.notes) - 1
+					}
+					if m.listIndex < 0 {
+						m.listIndex = 0
+					}
+				case "n", "N", "esc":
+					m.deleteNote = nil
+				}
+				break
+			}
+			switch key {
 			case "q":
 				return m, tea.Quit
 			case "n":
@@ -83,6 +115,5 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			}
 		}
 	}
-
 	return m, tea.Batch(cmds...)
 }

@@ -16,13 +16,14 @@ const (
 )
 
 type Model struct {
-	state     uint
-	store     note.Store
-	notes     []note.Note
-	currNote  note.Note
-	listIndex int
-	textarea  textarea.Model
-	textinput textinput.Model
+	state      uint
+	store      note.Store
+	notes      []note.Note
+	currNote   note.Note
+	listIndex  int
+	textarea   textarea.Model
+	textinput  textinput.Model
+	deleteNote *note.Note
 }
 
 func New(store note.Store) Model {

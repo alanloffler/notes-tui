@@ -2,7 +2,10 @@ module github.com/alanloffler/notes-tui
 
 go 1.26.2
 
-require charm.land/bubbletea/v2 v2.0.6
+require (
+	charm.land/bubbletea/v2 v2.0.6
+	github.com/mattn/go-sqlite3 v1.14.44
+)
 
 require (
 	github.com/charmbracelet/colorprofile v0.4.3 // indirect

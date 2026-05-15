@@ -11,34 +11,45 @@ func (m Model) View() tea.View {
 	s := styles.AppNameStyle.Render("Notes App") + "\n\n"
 
 	if m.state == titleView {
-		s += "Note title:\n\n"
-		s += m.textinput.View() + "\n\n"
-		s += styles.FaintStyle.Render(" enter save - esc discard")
+		s += styles.TitleStyle.Render("Note title:")
+		s += "\n\n"
+		s += m.textinput.View()
+		s += "\n\n\n"
+		s += styles.MutedForegroundStyle.Render("ctrl+s ") + styles.MutedStyle.Render("save • ")
+		s += styles.MutedForegroundStyle.Render("esc ") + styles.MutedStyle.Render("discard")
 	}
 
 	if m.state == bodyView {
-		s += "Note:\n\n"
-		s += m.textarea.View() + "\n\n"
-		s += styles.FaintStyle.Render("ctrl+s save - esc discard")
+		s += styles.TitleStyle.Render("Note:")
+		s += "\n\n"
+		s += m.textarea.View()
+		s += "\n\n\n"
+		s += styles.MutedForegroundStyle.Render("ctrl+s ") + styles.MutedStyle.Render("save • ")
+		s += styles.MutedForegroundStyle.Render("esc ") + styles.MutedStyle.Render("discard")
 	}
 
 	if m.state == listView {
 		for i, n := range m.notes {
 			prefix := " "
 			if i == m.listIndex {
-				prefix = "▸"
+				prefix = styles.CursorStyle.Render("▸")
 			}
 
 			shortBody := strings.ReplaceAll(n.Body, "\n", " ")
 			if len(shortBody) > 30 {
-				shortBody = shortBody[:30]
+				shortBody = shortBody[:30] + "..."
 			}
-			s += styles.EnumerableStyle.Render(prefix) + n.Title + " | " + styles.FaintStyle.Render(shortBody)
-			s += "\n\n"
+			s += prefix + "  " + styles.TextStyle.Render(n.Title) + "  " + styles.MutedStyle.Render(shortBody)
+			s += "\n"
 		}
 
-		s += styles.FaintStyle.Render("n new note - q quit")
+		s += "\n\n"
+		s += styles.MutedForegroundStyle.Render("n ") + styles.MutedStyle.Render("new • ")
+		s += styles.MutedForegroundStyle.Render("enter ") + styles.MutedStyle.Render("edit • ")
+		s += styles.MutedForegroundStyle.Render("q ") + styles.MutedStyle.Render("quit")
 	}
 
-	return tea.NewView(s)
+	v := tea.NewView(s)
+	v.AltScreen = true
+	return v
 }

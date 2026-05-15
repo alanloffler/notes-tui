@@ -33,5 +33,6 @@ go.work.sum
 # AI
 .agents
 .claude
+.opencode
 CLAUDE.md
 skills-lock.json

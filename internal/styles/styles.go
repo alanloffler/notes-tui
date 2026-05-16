@@ -19,4 +19,8 @@ var (
 	MutedStyle           = lipgloss.NewStyle().Foreground(mutedColor).Faint(true)
 	MutedForegroundStyle = lipgloss.NewStyle().Foreground(mutedColor)
 	DangerStyle          = lipgloss.NewStyle().Foreground(dangerColor)
+	// textarea
+	PromptStyle           = lipgloss.NewStyle().Foreground(primaryColor)
+	LineNumberStyle       = lipgloss.NewStyle().Foreground(primaryColor)
+	CursorLineNumberStyle = lipgloss.NewStyle().Foreground(primaryColor)
 )
